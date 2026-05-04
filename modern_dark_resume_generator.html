@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modern Resume Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #181a20;
+      --bg-sidebar: #23272f;
+      --accent: #00adb5;
+      --text-main: #f8f8f2;
+      --text-muted: #b0b0b0;
+      --border: #333;
+      --radius: 12px;
+    }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+    .container {
+      display: flex;
+      max-width: 950px;
+      margin: 40px auto;
+      background: var(--bg-sidebar);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 290px;
+      background: var(--bg-sidebar);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-right: 1px solid var(--border);
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent);
+      margin-bottom: 24px;
+      background: #222;
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 24px 0 8px 0;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .about, .skills, .contact {
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .about p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      margin: 0;
+    }
+    .skills ul {
+      list-style: disc inside;
+      padding: 0;
+      margin: 0;
+      color: var(--text-main);
+    }
+    .skills li {
+      margin-bottom: 4px;
+      font-size: 0.98rem;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--text-main);
+      font-size: 0.98rem;
+    }
+    .contact-info i {
+      color: var(--accent);
+      margin-right: 8px;
+      width: 18px;
+      text-align: center;
+    }
+    .main {
+      flex: 1;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .full-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+      color: #fff;
+    }
+    .job-title {
+      font-size: 1.2rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .main-section {
+      margin-bottom: 18px;
+    }
+    .main-section .section-title {
+      margin: 0 0 8px 0;
+    }
+    .edu-entry, .ref-entry, .lang-entry, .interest-entry {
+      margin-bottom: 8px;
+    }
+    .edu-entry strong, .ref-entry strong {
+      color: #fff;
+    }
+    .interest-list, .lang-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .interest-entry i {
+      color: var(--accent);
+      margin-right: 7px;
+      font-size: 1.1em;
+    }
+    .lang-entry {
+      font-size: 1em;
+      color: var(--text-main);
+    }
+    /* Form styles */
+    .form-section {
+      background: #181a20;
+      padding: 24px 32px;
+      border-radius: var(--radius);
+      margin: 32px auto 0 auto;
+      max-width: 950px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    }
+    .form-section h2 {
+      color: var(--accent);
+      margin-bottom: 18px;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+    }
+    .form-row {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+    .form-row label {
+      min-width: 120px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 7px;
+    }
+    .form-row input, .form-row textarea {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #23272f;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .form-row input[type='file'] {
+      padding: 0;
+      color: #fff;
+      background: none;
+      border: none;
+    }
+    .form-row textarea {
+      min-height: 40px;
+      resize: vertical;
+    }
+    .form-row input:focus, .form-row textarea:focus {
+      border: 1.5px solid var(--accent);
+    }
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,173,181,0.08);
+    }
+    .btn:hover {
+      background: #02858a;
+    }
+    @media (max-width: 900px) {
+      .container, .form-section { flex-direction: column; max-width: 98vw; padding: 0; }
+      .sidebar, .main { width: 100%; padding: 24px 10vw; }
+      .main { padding: 24px 6vw; }
+    }
+    @media (max-width: 600px) {
+      .container, .form-section { padding: 0; }
+      .sidebar, .main { padding: 18px 4vw; }
+      .main { padding: 18px 2vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-section">
+    <h2>Resume Details</h2>
+    <form id="cv-form">
+      <div class="form-row">
+        <label for="profileImg">Profile Image</label>
+        <input type="file" id="profileImg" accept="image/*">
+      </div>
+      <div class="form-row">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" required>
+      </div>
+      <div class="form-row">
+        <label for="jobTitle">Job Title</label>
+        <input type="text" id="jobTitle" required>
+      </div>
+      <div class="form-row">
+        <label for="aboutMe">About Me</label>
+        <textarea id="aboutMe" rows="2"></textarea>
+      </div>
+      <div class="form-row">
+        <label for="skills">Skills<br><span style="font-size:0.9em;color:#666;">(comma separated)</span></label>
+        <input type="text" id="skills" placeholder="e.g. Creativity, Communication, Typography">
+      </div>
+      <div class="form-row">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone">
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email">
+      </div>
+      <div class="form-row">
+        <label for="website">Website</label>
+        <input type="text" id="website" placeholder="e.g. yoursite.com">
+      </div>
+      <div class="form-row">
+        <label for="education">Education<br><span style="font-size:0.9em;color:#666;">(one per line: degree, school, years)</span></label>
+        <textarea id="education" rows="2"></textarea>
+      </div>
+      <div class="form-row">
+        <label for="references">References<br><span style="font-size:0.9em;color:#666;">(one per line: name, details)</span></label>
+        <textarea id="references" rows="2"></textarea>
+      </div>
+      <div class="form-row">
+        <label for="interests">Interests<br><span style="font-size:0.9em;color:#666;">(comma separated, e.g. Music, Coding, Travel)</span></label>
+        <input type="text" id="interests">
+      </div>
+      <div class="form-row">
+        <label for="languages">Languages<br><span style="font-size:0.9em;color:#666;">(comma separated)</span></label>
+        <input type="text" id="languages" placeholder="e.g. English, French, German">
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn" id="previewBtn">Preview CV</button>
+        <button type="button" class="btn" id="downloadBtn">Download as PDF</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="container" id="cv-preview" style="margin-top:32px;">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <img src="" alt="Profile" class="profile-img" id="cvProfileImg" style="display:none;">
+      <div class="about">
+        <div class="section-title">About Me</div>
+        <p id="cvAboutMe"></p>
+      </div>
+      <div class="skills">
+        <div class="section-title">Skills</div>
+        <ul id="cvSkills"></ul>
+      </div>
+      <div class="contact">
+        <div class="section-title">Contact</div>
+        <div class="contact-info">
+          <span><i class="fas fa-phone"></i><span id="cvPhone"></span></span>
+          <span><i class="fas fa-envelope"></i><span id="cvEmail"></span></span>
+          <span><i class="fas fa-globe"></i><span id="cvWebsite"></span></span>
+        </div>
+      </div>
+    </div>
+    <!-- Main Area -->
+    <div class="main">
+      <div class="full-name" id="cvFullName"></div>
+      <div class="job-title" id="cvJobTitle"></div>
+      <div class="main-section">
+        <div class="section-title">Education</div>
+        <div id="cvEducation"></div>
+      </div>
+      <div class="main-section">
+        <div class="section-title">References</div>
+        <div id="cvReferences"></div>
+      </div>
+      <div class="main-section">
+        <div class="section-title">Interests</div>
+        <ul class="interest-list" id="cvInterests"></ul>
+      </div>
+      <div class="main-section">
+        <div class="section-title">Languages</div>
+        <ul class="lang-list" id="cvLanguages"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- html2pdf.js for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    // Font Awesome icon mapping for interests
+    const interestIcons = {
+      'music': 'fa-music',
+      'coding': 'fa-code',
+      'travel': 'fa-plane',
+      'reading': 'fa-book',
+      'sports': 'fa-futbol',
+      'photography': 'fa-camera',
+      'art': 'fa-paint-brush',
+      'gaming': 'fa-gamepad',
+      'writing': 'fa-pen-nib',
+      'cooking': 'fa-utensils',
+      'movies': 'fa-film',
+      'fitness': 'fa-dumbbell',
+      'media': 'fa-photo-film'
+    };
+
+    // Update CV preview
+    function updatePreview() {
+      // Profile image
+      const imgInput = document.getElementById('profileImg');
+      const cvImg = document.getElementById('cvProfileImg');
+      if (imgInput.files && imgInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          cvImg.src = e.target.result;
+          cvImg.style.display = 'block';
+        };
+        reader.readAsDataURL(imgInput.files[0]);
+      } else {
+        cvImg.src = '';
+        cvImg.style.display = 'none';
+      }
+
+      // Text fields
+      document.getElementById('cvFullName').textContent = document.getElementById('fullName').value;
+      document.getElementById('cvJobTitle').textContent = document.getElementById('jobTitle').value;
+      document.getElementById('cvAboutMe').textContent = document.getElementById('aboutMe').value;
+
+      // Skills
+      const skills = document.getElementById('skills').value.split(',').map(s => s.trim()).filter(Boolean);
+      const skillsList = document.getElementById('cvSkills');
+      skillsList.innerHTML = '';
+      skills.forEach(skill => {
+        const li = document.createElement('li');
+        li.textContent = skill;
+        skillsList.appendChild(li);
+      });
+
+      // Contact
+      document.getElementById('cvPhone').textContent = document.getElementById('phone').value;
+      document.getElementById('cvEmail').textContent = document.getElementById('email').value;
+      document.getElementById('cvWebsite').textContent = document.getElementById('website').value;
+
+      // Education
+      const eduLines = document.getElementById('education').value.split('\n').map(e => e.trim()).filter(Boolean);
+      const eduDiv = document.getElementById('cvEducation');
+      eduDiv.innerHTML = '';
+      eduLines.forEach(line => {
+        const div = document.createElement('div');
+        div.className = 'edu-entry';
+        div.innerHTML = `<strong>${line.split(',')[0] || ''}</strong> <span style="color:#b0b0b0;">${line.split(',').slice(1).join(',')}</span>`;
+        eduDiv.appendChild(div);
+      });
+
+      // References
+      const refLines = document.getElementById('references').value.split('\n').map(r => r.trim()).filter(Boolean);
+      const refDiv = document.getElementById('cvReferences');
+      refDiv.innerHTML = '';
+      refLines.forEach(line => {
+        const div = document.createElement('div');
+        div.className = 'ref-entry';
+        div.innerHTML = `<strong>${line.split(',')[0] || ''}</strong> <span style="color:#b0b0b0;">${line.split(',').slice(1).join(',')}</span>`;
+        refDiv.appendChild(div);
+      });
+
+      // Interests
+      const interests = document.getElementById('interests').value.split(',').map(i => i.trim()).filter(Boolean);
+      const interestList = document.getElementById('cvInterests');
+      interestList.innerHTML = '';
+      interests.forEach(interest => {
+        const li = document.createElement('li');
+        li.className = 'interest-entry';
+        const iconKey = interest.toLowerCase();
+        const iconClass = interestIcons[iconKey] || 'fa-star';
+        li.innerHTML = `<i class="fas ${iconClass}"></i>${interest}`;
+        interestList.appendChild(li);
+      });
+
+      // Languages
+      const langs = document.getElementById('languages').value.split(',').map(l => l.trim()).filter(Boolean);
+      const langList = document.getElementById('cvLanguages');
+      langList.innerHTML = '';
+      langs.forEach(lang => {
+        const li = document.createElement('li');
+        li.className = 'lang-entry';
+        li.textContent = lang;
+        langList.appendChild(li);
+      });
+    }
+
+    // Event listeners for live preview
+    document.querySelectorAll('#cv-form input, #cv-form textarea').forEach(el => {
+      el.addEventListener('input', updatePreview);
+      el.addEventListener('change', updatePreview);
+    });
+
+    // Preview button
+    document.getElementById('previewBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      updatePreview();
+      document.getElementById('cv-preview').scrollIntoView({behavior: 'smooth'});
+    });
+
+    // Download as PDF
+    document.getElementById('downloadBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      updatePreview();
+      // Hide form before export
+      document.querySelector('.form-section').style.display = 'none';
+      // Wait for image to load
+      setTimeout(() => {
+        const element = document.getElementById('cv-preview');
+        const opt = {
+          margin:       0,
+          filename:     'resume.pdf',
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { scale: 2, useCORS: true },
+          jsPDF:        { unit: 'pt', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save().then(() => {
+          document.querySelector('.form-section').style.display = '';
+        });
+      }, 400);
+    });
+
+    // Initial preview
+    updatePreview();
+  </script>
+</body>
+</html>
