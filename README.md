@@ -1,6 +1,6 @@
 # 📄 Resume Builder Application
 
-A web-based Resume Builder Application that allows users to create professional resumes بسهولة and efficiently. This project helps users generate well-structured resumes without requiring design skills.
+A web-based Resume Builder Application that allows users to create professional resumes  and efficiently. This project helps users generate well-structured resumes without requiring design skills.
 
 ---
 
