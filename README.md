@@ -45,6 +45,8 @@ The system follows a **client-server architecture**:
 - Resume is generated dynamically using templates  
 
 ---
+![image alt](https://github.com/mussaratjamshaid-hub/ACP-project-/blob/948d89fdc1b63e03385203a06de10f0103b8baa7/cv%20genrate.png)
+
 
 ## ⚙️ Installation & Setup
 
