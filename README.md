@@ -24,7 +24,10 @@ A web-based Resume Builder Application that allows users to create professional 
 - To allow users to edit and update resumes easily  
 - To support multiple resume templates  
 - To provide clean and accurate formatting  
-- To enhance overall user experience  
+- To enhance overall user experience
+
+  ![image alt](https://github.com/mussaratjamshaid-hub/ACP-project-/blob/72631977de79432094feff6f94eba043d7eb5ead/backgorund.png)
+  
 
 ---
 
