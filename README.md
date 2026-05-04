@@ -13,7 +13,7 @@ A web-based Resume Builder Application that allows users to create professional 
 - 📱 Responsive design
 - 📄 Proper formatting and structure
 
-
+![image alt](https://github.com/mussaratjamshaid-hub/ACP-project-/blob/5e19d3a2abc8f5dad5c2a5f17a57bd121c2c1548/Home%20page%20.png)
 
 
 
